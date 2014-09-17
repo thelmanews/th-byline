@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../th-animated/th-animated.html">
+<link rel="import" href="../th-theme/th-theme.html">
 
 <!--
 'th-byline' component gives information about the author and date of publication
@@ -11,26 +12,59 @@
 @homepage http://github.com/thelmanews/th-byline/th-byline.html
 -->
 
-<polymer-element name="th-byline" extends="th-animated" attributes="name wsjLogo image time">
+<polymer-element name="th-byline" extends="th-animated" attributes="name image date timestamp wsjLogo textColor">
   <template>
       <core-style ref="theme"></core-style>
       <style>
 
+        .image {
+          width: 30px;
+          height: 30px;
+          display: inline-block;
+          float: left;
+        }
 
+        .byline {
+          display: inline-block;
+          text-transform: uppercase;
+          box-sizing: border-box;
+          height: 30px;
+          width: 200px;
+          font-weight: 500;
+        }
+        .name {
+          text-transform: uppercase;
+          font-size: 0.8em;
+          margin: 2px 6px;
+        }
+
+        .datetime {
+          font-size: 0.6em;
+          margin: 2px 6px;
+        }
       </style>  
 
       <!-- Inline styles are for Safari and mobile support --> 
-        
+      <template if="{{image}}">
+        <div class="image" style="background: url('{{image}}'); background-size: cover;"></div>  
+      </template>
+      <template if="{{wsjLogo}}">
+        <div class="image wsj" style="background: url('/bower_components/thelma-components/images/wsj60.jpg'); background-size: cover;"></div>  
+      </template>
+      <div class="byline" style="color: {{textColor}}">
+        <div class="name">{{name}}</div>
+        <div class="datetime">{{date}}<span style="font-weight: 200;"> {{timestamp}} <span> </div>
 
+      </div>
   </template>
-  
+  <script src="../moment/min/moment.min.js"></script>
   <script>
 
       Polymer('th-byline', {
-        init: function(){
-          var self =  this;
-          self.numWidth = (self.width - 35) / 6.5 ;
-          self.dividerWidth = Math.max(1, Math.round(self.numWidth / 15)); 
+        wsjLogo: true,
+        ready: function(){
+          this.date = this.date || moment().format('ll');
+          this.timestamp = this.timestamp || moment().format('h:mm a');
         }
       });
 
