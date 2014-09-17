@@ -1,0 +1,40 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../th-animated/th-animated.html">
+
+<!--
+'th-byline' component gives information about the author and date of publication
+
+@group Thelma Text
+@element th-byline
+@blurb Element giving information about the author and date of publication
+@status alpha
+@homepage http://github.com/thelmanews/th-byline/th-byline.html
+-->
+
+<polymer-element name="th-byline" extends="th-animated" attributes="name wsjLogo image time">
+  <template>
+      <core-style ref="theme"></core-style>
+      <style>
+
+
+      </style>  
+
+      <!-- Inline styles are for Safari and mobile support --> 
+        
+
+  </template>
+  
+  <script>
+
+      Polymer('th-byline', {
+        init: function(){
+          var self =  this;
+          self.numWidth = (self.width - 35) / 6.5 ;
+          self.dividerWidth = Math.max(1, Math.round(self.numWidth / 15)); 
+        }
+      });
+
+  </script>
+
+
+</polymer-element>
