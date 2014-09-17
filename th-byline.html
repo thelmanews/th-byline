@@ -45,7 +45,7 @@
       </style>  
 
       <!-- Inline styles are for Safari and mobile support --> 
-      <template if="{{image}}">
+      <template if="{{imageCheck(image)}}">
         <div class="image" style="background: url('{{image}}'); background-size: cover;"></div>  
       </template>
       <template if="{{wsjLogo}}">
@@ -65,6 +65,10 @@
         ready: function(){
           this.date = this.date || moment().format('ll');
           this.timestamp = this.timestamp || moment().format('h:mm a');
+        },
+        imageCheck: function(value){
+          var imageRegex = /^https?:\/\/.*(?:jpe?g|gif|png)$/;
+          return imageRegex.test(value);
         }
       });
 
