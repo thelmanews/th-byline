@@ -12,7 +12,7 @@
 @homepage http://github.com/thelmanews/th-byline/th-byline.html
 -->
 
-<polymer-element name="th-byline" extends="th-animated" attributes="height name image date timestamp wsjLogo textColor">
+<polymer-element name="th-byline" extends="th-animated" attributes="height name image date timestamp wsjLogo textColor bgColor bgOpacity">
   <template>
       <core-style ref="theme"></core-style>
       <style>
@@ -47,7 +47,7 @@
       <template if="{{wsjLogo}}">
         <div class="image wsj" style="background-size: cover; height: {{height}}px; width: {{height}}px;"></div>  
       </template>
-      <div class="byline" style="color: {{textColor}};">
+      <div class="byline" style="color: {{textColor}}; background-color: {{bgColor | convertToRgba}};">
         <div class="name" style="font-size: {{height*0.43}}px">{{name}}</div>
         <div class="datetime" style="font-size: {{height*0.32}}px">{{date}}<span style="font-weight: 200;"> {{timestamp}} <span> </div>
 
@@ -60,6 +60,8 @@
         wsjLogo: false,
         height: 33,
         image: "",
+        bgColor: "",
+        bgOpacity: 1,
         ready: function(){
           this.date = this.date || moment().format('ll');
           this.timestamp = this.timestamp || moment().format('h:mm a');
@@ -67,6 +69,16 @@
         imageCheck: function(value){
           var imageRegex = /^https?:\/\/.*(?:jpe?g|gif|png)$/;
           return imageRegex.test(value.toLowerCase());
+        },
+        convertToRgba: function(value){
+          var self = this;
+          if (value == "white"){
+            return "rgba(255,255,255,"+self.bgOpacity+");";
+          } else if (value == "black") {
+            return "rgba(0,0,0,"+self.bgOpacity+");";
+          } else {
+            return value;
+          }
         }
       });
 
