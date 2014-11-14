@@ -42,14 +42,14 @@
 
       <!-- Inline styles are for Safari and mobile support --> 
       <template if="{{imageCheck(image)}}">
-        <div class="image" style="background: url('{{image}}'); background-size: cover; height: {{height}}px; width: {{height}}px;"></div>  
+        <div class="image" style="background: url('{{image}}'); background-size: cover; height: {{computedHeight}}px; width: {{computedHeight}}px;"></div>  
       </template>
       <template if="{{wsjLogo}}">
-        <div class="image wsj" style="background-size: cover; height: {{height}}px; width: {{height}}px;"></div>  
+        <div class="image wsj" style="background-size: cover; height: {{computedHeight}}px; width: {{computedHeight}}px;"></div>  
       </template>
-      <div class="byline" style="color: {{textColor}}; background-color: {{bgColor | convertToRgba}}; height: {{height}}px;">
-        <div class="name" style="font-size: {{height*0.43}}px">{{name}}</div>
-        <div class="datetime" style="font-size: {{height*0.32}}px">{{date}}<span style="font-weight: 200;"> {{timestamp}} <span> </div>
+      <div class="byline" style="color: {{textColor}}; background-color: {{bgColor | convertToRgba}}; height: {{computedHeight}}px;">
+        <div class="name" style="font-size: {{computedHeight*0.43}}px">{{name}}</div>
+        <div class="datetime" style="font-size: {{computedHeight*0.32}}px">{{date}}<span style="font-weight: 200;"> {{timestamp}} <span> </div>
 
       </div>
   </template>
@@ -58,17 +58,19 @@
 
       Polymer('th-byline', {
         wsjLogo: false,
-        height: 33,
+        height: '33',
         image: "",
         bgColor: "",
         bgOpacity: 1,
         ready: function(){
+          this.computedHeight = this.computeHeight(this.height);
           this.date = this.date || moment().format('ll');
           this.timestamp = this.timestamp || moment().format('h:mm a');
         },
         imageCheck: function(value){
           var imageRegex = /^https?:\/\/.*(?:jpe?g|gif|png)$/;
-          return imageRegex.test(value.toLowerCase());
+          // return imageRegex.test(value.toLowerCase());
+          return value;
         },
         convertToRgba: function(value){
           var self = this;
