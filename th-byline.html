@@ -11,7 +11,7 @@
 @homepage http://github.com/thelmanews/th-byline/th-byline.html
 -->
 
-<polymer-element name="th-byline" extends="th-animated" attributes="height name image date timestamp wsjLogo textColor bgColor bgOpacity">
+<polymer-element name="th-byline" extends="th-animated" attributes="height name image date timestamp marketWatchLogo wsjLogo textColor bgColor bgOpacity">
   <template>
       <core-style ref="theme"></core-style>
       <style>
@@ -46,6 +46,9 @@
       <template if="{{wsjLogo}}">
         <div class="image wsj" style="background-size: cover; height: {{computedHeight}}px; width: {{computedHeight}}px;"></div>  
       </template>
+      <template if="{{marketWatchLogo}}">
+        <div class="image marketwatch" style="background-size: cover; height: {{computedHeight}}px; width: {{computedHeight}}px;"></div>  
+      </template>
       <div class="byline" style="color: {{textColor}}; background-color: {{bgColor | convertToRgba}}; height: {{computedHeight}}px;">
         <div class="name" style="font-size: {{computedHeight*0.43}}px">{{name}}</div>
         <div class="datetime" style="font-size: {{computedHeight*0.32}}px">{{date}}<span style="font-weight: 200;"> {{timestamp}} <span> </div>
@@ -57,6 +60,7 @@
 
       Polymer('th-byline', {
         wsjLogo: false,
+        marketWatchLogo: false,
         height: '33',
         image: "",
         bgColor: "",
