@@ -11,11 +11,13 @@
 @homepage http://github.com/thelmanews/th-byline/th-byline.html
 -->
 
-<polymer-element name="th-byline" extends="th-animated" attributes="height name image date timestamp marketWatchLogo wsjLogo textColor bgColor bgOpacity">
+<polymer-element name="th-byline" extends="th-animated" attributes="name image date timestamp marketWatchLogo wsjLogo textColor bgColor bgOpacity">
   <template>
       <core-style ref="theme"></core-style>
       <style>
-
+        :host{
+          height: 33px;
+        }
         .image {
           display: inline-block;
           float: left;
@@ -61,12 +63,11 @@
       Polymer('th-byline', {
         wsjLogo: false,
         marketWatchLogo: false,
-        height: '33',
         image: "",
         bgColor: "",
         bgOpacity: 1,
         ready: function(){
-          this.computedHeight = this.computeHeight(this.height);
+          this.computedHeight = this.computeHeight();
           this.date = this.date || moment().format('ll');
           this.timestamp = this.timestamp || moment().format('h:mm a');
         },
