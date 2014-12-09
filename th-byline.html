@@ -55,8 +55,8 @@
         <div class="image marketwatch" style="background-size: cover; height: {{computedHeight}}px; width: {{computedHeight}}px;"></div>  
       </template>
       <div class="byline" style="color: {{textColor}}; background-color: {{bgColor | convertToRgba}}; height: {{computedHeight}}px;">
-        <div class="name" style="font-size: {{computedHeight*0.43}}px">{{name}}</div>
-        <div class="datetime" style="font-size: {{computedHeight*0.32}}px">{{date}}<span style="font-weight: 200;"> {{timestamp}} <span> </div>
+        <div class="name" style="font-size: {{nameSize}}px">{{name}}</div>
+        <div class="datetime" style="font-size: {{dateSize}}px">{{date}}<span style="font-weight: 200;"> {{timestamp}} <span> </div>
 
       </div>
   </template>
@@ -71,13 +71,22 @@
         bgOpacity: 1,
         ready: function(){
           this.computedHeight = this.computeHeight();
+          // this.nameSize = this.computedHeight * 0.43;
+          // this.dateSize = this.computedHeight * 0.32;
+          this.computedHeight = 30; 
+          this.nameSize = 14.2
+          this.dateSize = 10.5;
+
           this.date = this.date || moment().format('ll');
           this.timestamp = this.timestamp || moment().format('h:mm a');
         },
         imageCheck: function(value){
           var imageRegex = /^https?:\/\/.*(?:jpe?g|gif|png)$/;
-          // return imageRegex.test(value.toLowerCase());
-          return value;
+          console.log("****");
+          console.log(value);
+          console.log(imageRegex.test(value.toLowerCase()));
+          return imageRegex.test(value.toLowerCase());
+          // return value;
         },
         convertToRgba: function(value){
           var self = this;
