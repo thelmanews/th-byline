@@ -87,10 +87,12 @@
         },
         convertToRgba: function(value){
           var self = this;
-          if (value == "white"){
+          if (value === "white"){
             return "rgba(255,255,255,"+self.bgOpacity+");";
-          } else if (value == "black") {
+          } else if (value === "black") {
             return "rgba(0,0,0,"+self.bgOpacity+");";
+          } else if (value === "none"){
+            return "";
           } else {
             return value;
           }
